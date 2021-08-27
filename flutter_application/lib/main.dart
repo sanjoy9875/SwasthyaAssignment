@@ -31,14 +31,8 @@ class _MyAppState extends State<MyApp> {
   DatabaseHelper databaseHelper = DatabaseHelper();
     List<User>? userList;
     int count = 0;
-   var _pagesData = [];
+   var _pagesData = [Page1(),Page2(),Page3()];
   int _selectedItem = 0;
-
-  @override
-  void initState() {
-    _pagesData = [Page1(userList),Page2(),Page3()];
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +84,6 @@ class _MyAppState extends State<MyApp> {
 				setState(() {
 				  this.userList = userList;
 				  this.count = userList.length;
-          _pagesData = [Page1(userList),Page2(),Page3()];
 				});
 			});
 		});

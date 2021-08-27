@@ -195,7 +195,7 @@ class _Page2State extends State<Page2> {
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text('Heart Rate',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+              child: Text('Temperature',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
             ),
 
             Padding(
@@ -312,7 +312,7 @@ class _Page3State extends State<Page3> {
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text('Heart Rate',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+              child: Text('SPO2',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
             ),
 
             Padding(
