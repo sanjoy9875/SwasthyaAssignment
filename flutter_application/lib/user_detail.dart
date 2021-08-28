@@ -117,12 +117,6 @@ class _UserDetailState extends State<UserDetail> {
   void _save()async{
 
     moveToLastScreen();
-      var rate = 75.0;
-      var temperature = 98.7;
-      var oxygen = 90.0;
-      user.rate = rate.toString();
-      user.temperature = temperature.toString();
-      user.oxygen = oxygen.toString();
       user.date = DateFormat.yMMMd().format(DateTime.now());
 
        int result = await databaseHelper.insertMovie(user);

@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
         return UserDetail(user);
     }),);
     if(result == true){
-      updateListView();
+      _pagesData = [Page1(),Page2(),Page3()];
         
     }
   }

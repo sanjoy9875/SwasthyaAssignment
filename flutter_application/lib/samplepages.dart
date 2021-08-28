@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/user.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'package:sqflite/sqlite_api.dart';
+
+import 'database_helper.dart';
 
 class Page1 extends StatefulWidget {
-
-    // final List<User>? userList;
-    // Page1(this.userList);
 
   @override
   _Page1State createState() => _Page1State();
@@ -12,21 +13,42 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
 
-  //    List<User>? userList;
-  // _Page1State(this.userList);
-
-  
-  var color;
-  var text;
-  var rate;
-    var data = [70.0,74.0,72.0,90.0,90.0,110.0,95.0,121.0];
+  var color = Colors.white;
+  var text = "";
+  var rate = 0.0;
+    List<double> data = [0.0];
+        late User user;
+        int count = 0;
+ 
+  DatabaseHelper databaseHelper = DatabaseHelper();
+    List<User>? userList;
 
 @override
   void initState() {
 
+	final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+		dbFuture.then((database) {
 
-    int n = data.length-1;
-    rate = data[n];
+			Future<List<User>> userListFuture = databaseHelper.getUserList();
+			userListFuture.then((userList) {
+				setState(() {
+				  this.userList = userList;
+				  this.count = userList.length;
+          for(int i=0; i<userList.length; i++){
+          
+          String? s = userList[i].rate;
+          double d = double.parse(s!);
+           print("data1 : $d");
+          data.add(d);
+
+          print("data2 : $data");
+
+        }
+
+         print("data3 : ${data.length}");
+          int n = data.length-1;
+          rate = data[n];
+           print("data4 : $rate");
      if(data[n]>120){
        color = Colors.red;
        text = 'High';
@@ -39,11 +61,21 @@ class _Page1State extends State<Page1> {
      color = Colors.green;
      text = 'Normal';
    }
+				});
+			});
+		});
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+       if(userList==null){ 
+        userList = [];    
+      }
+      
+    print("two de ${data.length}");
     return Scaffold(
       body: Center(
         child: Column(
@@ -96,7 +128,7 @@ class _Page1State extends State<Page1> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Sparkline(
-                            data: data,
+                            data: data,                       
                             lineColor: Colors.blue[400],
                             pointsMode: PointsMode.all,
                             pointSize: 8.0,
@@ -123,26 +155,47 @@ class _Page1State extends State<Page1> {
 
 class Page2 extends StatefulWidget {
 
-  //  List<User>? userList;
-  // Page2(this.userList);
   @override
   _Page2State createState() => _Page2State();
 }
 
 class _Page2State extends State<Page2> {
 
-  //    List<User>? userList;
-  // _Page2State(this.userList);
+  var color = Colors.white;
+  var text = "";
+  var temperature = 0.0;
+    List<double> data = [0.0];
+        late User user;
+        int count = 0;
+ 
+  DatabaseHelper databaseHelper = DatabaseHelper();
+    List<User>? userList;
 
-  var data = [98.7,100.0,98.6,102.2,99.0,104.0,100.0,102.0];
-  var color;
-  var text;
-  var rate;
 
-  @override
+@override
   void initState() {
-    int n = data.length-1;
-    rate = data[n];
+
+	final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+		dbFuture.then((database) {
+
+			Future<List<User>> userListFuture = databaseHelper.getUserList();
+			userListFuture.then((userList) {
+				setState(() {
+				  this.userList = userList;
+				  this.count = userList.length;
+          for(int i=0; i<userList.length; i++){
+          
+          String? s = userList[i].temperature;
+          double d = double.parse(s!);
+           print("data1 : $d");
+          data.add(d);
+
+          print("data2 : $data");
+
+        }
+
+   int n = data.length-1;
+    temperature = data[n];
      if(data[n]>103){
        color = Colors.red;
        text = 'High';
@@ -155,11 +208,20 @@ class _Page2State extends State<Page2> {
      color = Colors.green;
      text = 'Normal';
    }
+				});
+			});
+		});
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+      if(userList==null){ 
+        userList = [];    
+      }
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -181,7 +243,7 @@ class _Page2State extends State<Page2> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('$rate F',style: TextStyle(color: color,fontWeight: FontWeight.bold,fontSize: 20)),
+                        child: Text('$temperature F',style: TextStyle(color: color,fontWeight: FontWeight.bold,fontSize: 20)),
                       ),
                     ],
                   ),          
@@ -239,27 +301,47 @@ class _Page2State extends State<Page2> {
 
 class Page3 extends StatefulWidget {
 
-  //  List<User>? userList;
-  // Page3(this.userList);
-
   @override
   _Page3State createState() => _Page3State();
 }
 
 class _Page3State extends State<Page3> {
 
-  //  List<User>? userList;
-  // _Page3State(this.userList);
+  var color = Colors.white;
+  var text = "";
+  var oxygen = 0.0;
+    List<double> data = [0.0];
+        late User user;
+        int count = 0;
+ 
+  DatabaseHelper databaseHelper = DatabaseHelper();
+    List<User>? userList;
 
-  var data = [90.0,96.0,92.0,93.0,92.0,97.0,90.0,98.0];
-  var color;
-  var text;
-  var rate;
 
 @override
   void initState() {
-    int n = data.length-1;
-    rate = data[n];
+
+	final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+		dbFuture.then((database) {
+
+			Future<List<User>> userListFuture = databaseHelper.getUserList();
+			userListFuture.then((userList) {
+				setState(() {
+				  this.userList = userList;
+				  this.count = userList.length;
+          for(int i=0; i<userList.length; i++){
+          
+          String? s = userList[i].oxygen;
+          double d = double.parse(s!);
+           print("data1 : $d");
+          data.add(d);
+
+          print("data2 : $data");
+
+        }
+
+     int n = data.length-1;
+    oxygen = data[n];
      if(data[n]<90){
        color = Colors.red;
        text = 'High';
@@ -272,8 +354,13 @@ class _Page3State extends State<Page3> {
      color = Colors.green;
      text = 'Normal';
    }
+				});
+			});
+		});
+
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -298,7 +385,7 @@ class _Page3State extends State<Page3> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('$rate BPM',style: TextStyle(color: color,fontWeight: FontWeight.bold,fontSize: 20)),
+                        child: Text('$oxygen F',style: TextStyle(color: color,fontWeight: FontWeight.bold,fontSize: 20)),
                       ),
                     ],
                   ),          
